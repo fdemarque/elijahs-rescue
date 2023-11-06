@@ -79,32 +79,6 @@ void printGameTitle()
     printf("=======================================================================================================================================\n");
 }
 
-void printEndScreen()
-{
-    system('cls');
-    printf("=======================================================================================================================================\n");
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|####################################################------------------------------###################################################|\n");
-    Sleep(200);
-    printf("|####################################################------------THANKS------------###################################################|\n");
-    Sleep(200);
-    printf("|####################################################-------------FOR--------------###################################################|\n");
-    Sleep(200);
-    printf("|####################################################-----------PLAYING------------###################################################|\n");
-    Sleep(200);
-    printf("|####################################################------------------------------###################################################|\n");
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("=======================================================================================================================================\n");
-}
-
 void runGame(struct game *game)
 {
     strcpy(game->elijah.name, "Elijah");
@@ -133,8 +107,8 @@ void runGame(struct game *game)
     game->mother.sanity = 0;
     game->mother.will = 10;
     game->mother.knowledge = 1000;
-    game->mother.phrases = (char **)malloc(9 * sizeof(char *));
-    game->mother.numPhrases = 9;
+    game->mother.phrases = (char **)malloc(10 * sizeof(char *));
+    game->mother.numPhrases = 10;
 
     game->mother.phrases[0] = "Martha: You know who I am.\n",
     game->mother.phrases[1] = "Martha: I missed you so much my son.\n",
@@ -144,7 +118,8 @@ void runGame(struct game *game)
     game->mother.phrases[5] = "Martha: Mom wants you to be brave, and fight for us up there.\n",
     game->mother.phrases[6] = "Martha: Life is beautiful and meaningful because it ends.\n",
     game->mother.phrases[7] = "Martha: There's is one last thing I want you to know before our last goodbye.\n",
-    game->mother.phrases[8] = "Martha: ...\n";
+    game->mother.phrases[8] = "Martha: ...\n",
+    game->mother.phrases[9] = "Martha: You are stronger than him, FIGHT!\n";
 
     strcpy(game->hajile.name, "Hajile");
     game->hajile.sanity = 100;
@@ -306,7 +281,6 @@ void play(struct game *game)
 
                 int randomResponse = rand() % 3;
                 printf("Misterious being: %s", beingResponses[randomResponse]);
-                printf("[y] - yes || [n] - no\n");
 
                 char answer;
                 scanf(" %c", &answer);
@@ -345,7 +319,7 @@ void play(struct game *game)
     printf("|######################################################---------PHASE %d---------######################################################|\n", game->thisPhase);
     Sleep(200);
     printf("|#####################################################################################################################################|\n");
-    customPause("Press Enter to continue...\n");
+    customPause("Press Enter to continue...");
     typeText("This is the next room.\n\n");
     printf("...\n");
     typeText("You are... afraid!?\n");
@@ -545,13 +519,6 @@ void play(struct game *game)
             else
             {
                 Sleep(500);
-                system('cls');
-                typeText("Lights fade out...\n");
-                Sleep(500);
-                system('cls');
-                typeText("You see nothing...\n");
-                Sleep(500);
-                system('cls');
                 typeText(".\n");
                 typeText(".\n");
                 typeText(".\n");
@@ -574,31 +541,7 @@ void play(struct game *game)
             printf("Invalid option. Choose again.\n");
         }
     }
-//---------------------------------------------------------------------------------------FINALE---------------------------------------------------------------------------------------------------
-    system("cls");
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|######################################################---------PHASE %d---------######################################################|\n", game->thisPhase);
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    customPause("Press Enter to continue...");
-
-    typeText("You are awake.\n");
-    typeText("...\n");
-    Sleep(3000);
-    system('cls');
-    typeText("you are in the hospital... a man with sunglasses is watching you from the other side of the window...\n");
-    typeText("something tells you that you know him...");
-    typeText(".\n");
-    typeText(".\n");
-    typeText(".\n");
-    typeText(".\n");
-    typeText(".\n");
-    typeText("...\n");
-    typeText("He smiles for you and leave...");
-    Sleep(5000);
 }
-
 
 int main()
 {
@@ -609,8 +552,6 @@ int main()
     customPause("|#######################################################--PRESS ENTER TO PLAY--#######################################################|\n");
     runGame(&game);
     play(&game);
-    printEndScreen();
 
     return 0;
 }
-

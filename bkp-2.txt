@@ -14,8 +14,6 @@ struct Character
     int sanity;
     int will;
     int knowledge;
-    char **phrases;
-    int numPhrases;
 };
 
 struct game
@@ -26,7 +24,6 @@ struct game
     struct Character mother;
     struct Character hajile;
     int thisPhase;
-    int index;
 };
 
 void typeText(char *text)
@@ -47,12 +44,10 @@ void typeText(char *text)
 void customPause(const char *message)
 {
     printf("%s", message);
-    char c;
-    while ((c = getchar()) != '\n' && c != EOF)
+    while (getchar() != '\n')
     {
     }
 }
-
 
 void printGameTitle()
 {
@@ -79,45 +74,15 @@ void printGameTitle()
     printf("=======================================================================================================================================\n");
 }
 
-void printEndScreen()
-{
-    system('cls');
-    printf("=======================================================================================================================================\n");
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|####################################################------------------------------###################################################|\n");
-    Sleep(200);
-    printf("|####################################################------------THANKS------------###################################################|\n");
-    Sleep(200);
-    printf("|####################################################-------------FOR--------------###################################################|\n");
-    Sleep(200);
-    printf("|####################################################-----------PLAYING------------###################################################|\n");
-    Sleep(200);
-    printf("|####################################################------------------------------###################################################|\n");
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("=======================================================================================================================================\n");
-}
-
 void runGame(struct game *game)
 {
+    system("cls");
+    typeText("Welcome, Elijah!\n");
+
     strcpy(game->elijah.name, "Elijah");
     game->elijah.sanity = 100;
     game->elijah.will = 10;
     game->elijah.knowledge = 5;
-    game->elijah.phrases = (char **)malloc(4 * sizeof(char *));
-    game->elijah.numPhrases = 4;
-
-    game->elijah.phrases[0] = "Elijah: We rejected ourselves, we... I must accept myself.\n";
-    game->elijah.phrases[1] = "Elijah: And how WE see ourselves? We... I should be fighting FOR me!.\n";
-    game->elijah.phrases[2] = "Elijah: She is gone, and this is the hardest part of our fight, but it's also a reason to stand FOR her because she fought for me!\n";
-    game->elijah.phrases[3] = "Elijah: You can face EVERYTHING, I can face EVERYTHING, WE ARE ONE, AND WE DESERVE OUR PLACE UNDERNEATH THE SUN!\n";
 
     strcpy(game->crowley.name, "Crowley");
     game->crowley.sanity = 1000;
@@ -133,60 +98,42 @@ void runGame(struct game *game)
     game->mother.sanity = 0;
     game->mother.will = 10;
     game->mother.knowledge = 1000;
-    game->mother.phrases = (char **)malloc(9 * sizeof(char *));
-    game->mother.numPhrases = 9;
-
-    game->mother.phrases[0] = "Martha: You know who I am.\n",
-    game->mother.phrases[1] = "Martha: I missed you so much my son.\n",
-    game->mother.phrases[2] = "Martha: Look what they've done to you my boy.\n",
-    game->mother.phrases[3] = "Martha: Don't blame on you for it's not your fault, but listen to me...\n",
-    game->mother.phrases[4] = "Martha: You were loved with a love I didn't even knew I could feel... And you'll always be.\n",
-    game->mother.phrases[5] = "Martha: Mom wants you to be brave, and fight for us up there.\n",
-    game->mother.phrases[6] = "Martha: Life is beautiful and meaningful because it ends.\n",
-    game->mother.phrases[7] = "Martha: There's is one last thing I want you to know before our last goodbye.\n",
-    game->mother.phrases[8] = "Martha: ...\n";
 
     strcpy(game->hajile.name, "Hajile");
     game->hajile.sanity = 100;
     game->hajile.will = 10;
     game->hajile.knowledge = 10;
-    game->hajile.phrases = (char **)malloc(4 * sizeof(char *));
-    game->hajile.numPhrases = 4;
-
-    game->hajile.phrases[0] = "Hajile: THE WORLD OF THE LIVING HAS REJECTED ME!\n",
-    game->hajile.phrases[1] = "Hajile: THE WORLD OF THE LIVING SEES ME AS A FOOL!\n",
-    game->hajile.phrases[2] = "Hajile: OUR MOTHER IS GONE, I AM NOTHING WITHOUT HER!\n",
-    game->hajile.phrases[3] = "Hajile: I CAN'T NO LONGER FACE THE WORLD OF THE LIVING!\n";
 
     game->thisPhase = 1;
-    
-    system("cls");
-    typeText("Welcome, Elijah!\n");
+
     typeText("My name is Crowley...\n");
     typeText("We don't have much time for explanations, just know your suffering was noticed...\n");
     typeText("Be brave and smart as I know you are, and good luck at the challenges ahead.\n");
     typeText("...\n");
-    Sleep(3000);
+
+    customPause("Press Enter to continue...");
 }
 
 void play(struct game *game)
 {
     //----------------------------------------------------------------------------Trial of Acceptance--------------------------------------------------------------------------------------------------//
-    system("cls");
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|######################################################---------PHASE %d---------######################################################|\n", game->thisPhase);
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    customPause("");
-    customPause("Press Enter to continue...");
-    typeText("You are in a room, there is a door... and a mysterious being holding a key.\n\n");
-    printf("...\n");
-    typeText("You feel rejected...\n");
-    typeText("misterious being: You feel, therefore you are... This is the Trial of the Acceptance.\n");
-
     while (game->thisPhase == 1)
     {
+        int control = 0;
+        if (control == 0)
+        {
+            printf("|#####################################################################################################################################|\n");
+            Sleep(200);
+            printf("|######################################################---------PHASE %d---------#####################################################|\n", game->thisPhase);
+            Sleep(200);
+            printf("|#####################################################################################################################################|\n");
+            customPause("Press Enter to continue...");
+            typeText("You are in a room, there is a door... and a mysterious being holding a key.\n\n");
+            printf("...\n");
+            typeText("You feel rejected...\n");
+            typeText("misterious being: You feel, therefore you are... This is the Trial of the Acceptance.\n");
+        }
+
         printf("1. You feel Crowley's presence in your mind, ask him for help.\n");
         printf("2. Talk to the mysterious being.\n");
         printf("3. Surrender to the endless darkness.\n");
@@ -198,6 +145,7 @@ void play(struct game *game)
         switch (choice)
         {
         case 1:
+            control++;
             typeText("You decide to talk to Crowley. He says:\n");
 
             char *crowleyResponses[] = {
@@ -209,6 +157,7 @@ void play(struct game *game)
             printf("Crowley: %s", crowleyResponses[randomResponse]);
             break;
         case 2:
+            control++;
             typeText("The mysterious presence says:\n");
             typeText("You are lost and about to lose everything. Answer the riddle to find knowledge:\n");
             typeText("In nature I fell, to rise from the earth, there is no fruit without me, and no chance to ribirth, who am I?\n");
@@ -234,7 +183,6 @@ void play(struct game *game)
                     if (chances == 0)
                     {
                         printf("You are gone, there is only darkness.\n");
-                        customPause("");
                         customPause("Press Enter to leave.");
                         return;
                     }
@@ -244,7 +192,7 @@ void play(struct game *game)
                     typeText("You see? The seed that germinates is the one rejected by the tree. Growth only comes for those who fall.\n");
                     typeText("The next room are waiting, continue your journey.\n");
                     correct++;
-                    Sleep(3000);
+                    customPause("Press Enter to continue...");
                     game->elijah.knowledge = game->elijah.knowledge + 5;
                     game->thisPhase = 2;
                 }
@@ -256,29 +204,30 @@ void play(struct game *game)
             break;
         case 3:
             printf("You gave up. There's only darkness.\n");
-            Sleep(3000);
-            customPause("");
             customPause("Press Enter to leave.");
             return;
         default:
+            control++;
             printf("Invalid option. Choose again.\n");
         }
     }
-    //----------------------------------------------------------------------------Trial of the Wise--------------------------------------------------------------------------------------------------//
-    system("cls");
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|######################################################---------PHASE %d---------######################################################|\n", game->thisPhase);
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    customPause("Press Enter to continue...\n");
-    typeText("This is the next room.\n\n");
-    printf("...\n");
-    typeText("You feel foolish...\n");
-    typeText("misterious being: You feel, therefore you are... This is the Trial of the Wise.\n");
-
+    //----------------------------------------------------------------------------Trial of the wISE--------------------------------------------------------------------------------------------------//
     while (game->thisPhase == 2)
     {
+        int control = 0;
+        if (control == 0)
+        {
+            printf("|#####################################################################################################################################|\n");
+            Sleep(200);
+            printf("|######################################################---------PHASE %d---------#####################################################|\n", game->thisPhase);
+            Sleep(200);
+            printf("|#####################################################################################################################################|\n");
+            customPause("Press Enter to continue...");
+            typeText("This is the next room.\n\n");
+            printf("...\n");
+            typeText("You feel foolish...\n");
+            typeText("misterious being: You feel, therefore you are... This is the Trial of the Wise.\n");
+        }
 
         printf("1. You feel Crowley's presence in your mind, ask him for help.\n");
         printf("2. Talk to the mysterious being.\n");
@@ -292,11 +241,14 @@ void play(struct game *game)
         switch (choice)
         {
         case 1:
+            control++;
             typeText("You decide to talk to Crowley. He says:\n");
             typeText("Never felt that way, kiddo. Can't help ya with that one.\n");
+
         case 2:
-            typeText("You decide to talk to the mysterious being. He says:\n");
+            control++;
             int times = 0;
+            typeText("You decide to talk to the mysterious being. He says:\n");
             for (times = 0; times < 11; times++)
             {
                 char *beingResponses[] = {
@@ -306,10 +258,9 @@ void play(struct game *game)
 
                 int randomResponse = rand() % 3;
                 printf("Misterious being: %s", beingResponses[randomResponse]);
-                printf("[y] - yes || [n] - no\n");
 
                 char answer;
-                scanf(" %c", &answer);
+                scanf("%c", &answer);
             }
 
             typeText("Misterious being: See? Doens't matter what you say. Words can't define you.\n");
@@ -321,50 +272,57 @@ void play(struct game *game)
             typeText(".\n");
             typeText(".\n");
             typeText("...\n");
-            typeText("The door opens.\n");
-            Sleep(3000);
-            game->elijah.knowledge = game->elijah.knowledge + 5;
+            char question = '?';
+            printf("[?] - Asks wich coin.\n");
+            scanf("%c", &question);
+            typeText("Misterious being: This coin.\n");
+            typeText("...\n");
+            customPause("Press Enter to receive the coin.");
+            printf("You received a coin.\n");
+            game->elijah.knowledge = game->crowley.knowledge + 5;
             game->thisPhase = 3;
             break;
         case 3:
+            control++;
             typeText("mysterious being: I'm the one who asks, you are the one who answer.\n");
         case 4:
             printf("You gave up. There's only darkness.\n");
-            Sleep(3000);
-            customPause("");
-            customPause("Press Enter to leave.\n");
+            customPause("Press Enter to leave.");
             return;
         default:
+            control++;
             printf("Invalid option. Choose again.\n");
         }
     }
     //----------------------------------------------------------------------------Trial of the Brave--------------------------------------------------------------------------------------------------//
-    system("cls");
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|######################################################---------PHASE %d---------######################################################|\n", game->thisPhase);
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    customPause("Press Enter to continue...\n");
-    typeText("This is the next room.\n\n");
-    printf("...\n");
-    typeText("You are... afraid!?\n");
-    typeText("But something doesn't feel right... Where is the wizard?\n");
-    
-    customPause("");
-    customPause("Press Enter to continue.\n");
-
-    char *roomContent[] = {
-        "A woman on a couch... It is dark and blurry, you can't see who it is, but somehow you know her.\n",
-        "A mirror on the wall, and a silhuete of a woman within.\n",
-        "A presence, like a shadow, seems like a woman or something like that.\n"};
-
-    int theRoom = rand() % 3;
-    printf("%s", roomContent[theRoom]);
-    typeText("A cold silence fills the room, what you are going to do?\n\n");
-
     while (game->thisPhase == 3)
     {
+        int control = 0;
+        if (control == 0)
+        {
+            printf("|#####################################################################################################################################|\n");
+            Sleep(200);
+            printf("|######################################################---------PHASE %d---------#####################################################|\n", game->thisPhase);
+            Sleep(200);
+            printf("|#####################################################################################################################################|\n");
+            customPause("Press Enter to continue...");
+            typeText("This is the next room.\n\n");
+            printf("...\n");
+            typeText("You are... afraid!?\n");
+            typeText("But something doesn't feel right... Where is the wizard?\n");
+
+            customPause("Press Enter to continue.");
+
+            char *roomContent[] = {
+                "A woman on a couch... It is dark and blurry, you can't see who it is, but somehow you know her.\n",
+                "A mirror on the wall, and a silhuete of a woman within.\n",
+                "A presence, like a shadow, seems like a woman or something like that.\n"};
+
+            int theRoom = rand() % 3;
+            printf("%s", roomContent[theRoom]);
+            typeText("A cold silence fills the room, what you are going to do?\n\n");
+        }
+
         int choice;
         printf("1. Crowley's presence has faded, try to reach him.\n");
         printf("2. Ask who is she.\n");
@@ -375,37 +333,45 @@ void play(struct game *game)
         switch (choice)
         {
         case 1:
+            control++;
             typeText("You're by your own.\n");
             break;
         case 2:
-            game->index = 0;
-            for (game->elijah.sanity = 90; game->elijah.sanity > 1; game->elijah.sanity = game->elijah.sanity-10){
+            control++;
+            char *phrases[] = {
+                "You know who I am.\n",
+                "I missed you so much my son.\n",
+                "Look what they've done to you my boy.\n",
+                "Don't blame on you for it's not your fault, but listen to me...\n",
+                "You were loved with a love I didn't even knew I could feel... And you'll always be.\n",
+                "Mom wants you to be brave, and fight for us up there.\n",
+                "Life is beautiful and meaningful because it ends.\n",
+                "There's is one last thing I want you to know before our last goodbye.\n",
+                "...\n",
+                "You are stronger than him, FIGHT!\n"};
+
+            while (game->crowley.sanity > 0)
+            {
+                int i;
+                printf("%s\n", phrases[i]);
+                int answer = 0;
+                typeText("Hear more?\n");
+                printf("1. Yes.\n");
+                printf("2. No.\n");
+                scanf("%d", answer);
+                if (answer == 1 && game->crowley.sanity > 0)
                 {
-                    printf("----------------------------------------------------------------------------------------\n");
-                    printf("%s\n", game->mother.phrases[game->index]);
-                    printf("----------------------------------------------------------------------------------------\n");
-                    int answer = 0;
-                    {
-                        typeText("Hear more?\n");
-                        printf("1. Yes.\n");
-                        printf("2. No.\n");
-                        scanf("%d", &answer);
-
-                        if (answer == 1 && game->elijah.sanity > 0)
-                        {
-                            typeText("You lose sanity.\n\n");
-                            printf("Actual sanity is %d\n\n", game->elijah.sanity);
-                            game->index++;
-                        }
-                        else if (answer == 2)
-                        {
-                            typeText("The fear consumes your soul, you are gone forevermore.\n");
-                            customPause("Press Enter to leave.");
-                            return;
-                        }
-                    }
+                    typeText("You lose sanity.\n\n");
+                    printf("Actual sanity is %d", game->crowley.sanity);
+                    game->elijah.sanity = game->crowley.sanity - 10;
+                    i++;
                 }
-
+                else if (answer == 2 && game->crowley.sanity > 0)
+                {
+                    typeText("The fear consumes your soul, you are gone forevermore.\n");
+                    customPause("Press Enter to leave.");
+                    return;
+                }
             }
             typeText("You are gone, there is only darkness.\n");
             typeText(".\n");
@@ -416,41 +382,44 @@ void play(struct game *game)
             customPause("Press Enter to continue.");
             typeText("mysterious being: That's bravery. Feel the fear, the risk, but stay loyal to your heart.\n");
             typeText("mysterious being: The door opens for you, go ahead and face your last challenge.\n");
-            Sleep(3000);
-            game->elijah.sanity = 100;
             game->thisPhase = 4;
             break;
         case 3:
+            control++;
             typeText("You can't surrender now.\n");
             break;
         default:
+            control++;
             printf("Invalid option. Choose again.\n");
         }
     }
 
     //----------------------------------------------------------------------------Archetype of the Hero--------------------------------------------------------------------------------------------------//
-    system("cls");
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|######################################################---------PHASE %d---------######################################################|\n", game->thisPhase);
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    customPause("Press Enter to continue...");
-
-    typeText("You are in the last room.\n\n");
-    typeText("...\n");
-    typeText("You feel confused...\n");
-    typeText("mysterious being whispers: It is anger, sadness, anguish, and a lot more you're feeling.\n");
-    typeText("Now look ahead.\n");
-    typeText(".\n");
-    typeText(".\n");
-    typeText(".\n");
-    typeText("...\n");
-    typeText("There is what looks like a boy, his eyes are filled with darkness and pain, he is long forgotten and so far gone.\n");
-    typeText("And he looks like you.\n");
-
     while (game->thisPhase == 4)
     {
+        int control = 0;
+        if (control == 0)
+        {
+            printf("|#####################################################################################################################################|\n");
+            Sleep(200);
+            printf("|######################################################---------PHASE %d---------#####################################################|\n", game->thisPhase);
+            Sleep(200);
+            printf("|#####################################################################################################################################|\n");
+            customPause("Press Enter to continue...");
+
+            typeText("You are in the last room.\n\n");
+            typeText("...\n");
+            typeText("You feel confused...\n");
+            typeText("mysterious being whispers: It is anger, sadness, anguish, and a lot more you're feeling.\n");
+            typeText("Now look ahead.\n");
+            typeText(".\n");
+            typeText(".\n");
+            typeText(".\n");
+            typeText("...\n");
+            typeText("There is what looks like a boy, his eyes are filled with darkness and pain, he is long forgotten and so far gone.\n");
+            typeText("And he looks like you.\n");
+        }
+
         printf("1. Try to contact with the wizard for instructions.\n");
         printf("2. Ask Crowley for help.\n");
         printf("3. Talk to the boy.\n");
@@ -463,23 +432,26 @@ void play(struct game *game)
         switch (choice)
         {
         case 1:
+            control++;
             typeText("You try to contact the mysterious being...\n");
             typeText("...\n");
             Sleep(200);
             printf("He isn't there.\n");
             break;
         case 2:
+            control++;
             typeText("You try to contact Crowley...\n");
             typeText("...\n");
             Sleep(200);
             printf("He isn't there.\n");
             break;
         case 3:
+            control++;
+            int answer1;
             printf("What do you say?\n\n");
             printf("1. Hi!\n");
             printf("2. Who are you?\n");
             printf("3. Are you real?\n");
-            int answer1;
             scanf("%d", &answer1);
             if ((answer1 == 2) || (answer1 == 3))
             {
@@ -511,30 +483,45 @@ void play(struct game *game)
             typeText("This time is different, you really feel like you are losing yourself to darkness as you get insaner...\n");
             typeText("You must hurry.\n");
 
-            int yourAnswer;
-            for (game->index = 0; game->index < 4; game->index++)
+            char *attacks[] = {
+                "THE WORLD OF THE LIVING HAS REJECTED ME!\n",
+                "THE WORLD OF THE LIVING SEES ME AS A FOOL!\n",
+                "OUR MOTHER IS GONE, I AM NOTHING WITHOUT HER!\n",
+                "I CAN'T NO LONGER FACE THE WORLD OF THE LIVING!\n"};
+
+            char *responses[] = {
+                "We rejected ourselves, we... I must accept myself.\n",
+                "And how WE see ourselves? We... I should be fighting FOR me!.\n",
+                "She is gone, and this is the hardest part of our fight, but it's also a reason to stand FOR her because she fought for me!\n",
+                "You can face EVERYTHING, I can face EVERYTHING, WE ARE ONE, AND WE DESERVE OUR PLACE UNDERNEATH THE SUN!\n"};
+
+            int i = 0;
+            while (game->elijah.sanity > 0)
             {
-                printf("----------------------------------------------------------------------------------------\n");
-                printf("%s\n", game->hajile.phrases[game->index]);
-                printf("----------------------------------------------------------------------------------------\n");
+                int yourAnswer;
+                printf("%s\n", attacks[i]);
                 printf("1. Agree!\n");
                 printf("2. Deny!\n");
                 scanf("%d", &yourAnswer);
-                if (yourAnswer == 2)
-                {
-                    game->elijah.knowledge = game->elijah.knowledge - 5;
-                    printf("----------------------------------------------------------------------------------------\n");
-                    printf("%s\n", game->elijah.phrases[game->index]);
-                    printf("----------------------------------------------------------------------------------------\n");
-                }
-                else
+                if (yourAnswer == 1)
                 {
                     game->elijah.sanity = game->elijah.sanity - 25;
                     typeText("You feel your sanity fading.\n");
                 }
+                else if (yourAnswer == 2)
+                {
+                    game->elijah.knowledge = game->elijah.knowledge - 5;
+                    printf("%s\n", responses[i]);
+                }
+                else
+                {
+                    typeText("Insert a valid answer: ");
+                    scanf("%d", &yourAnswer);
+                }
+                i++;
             }
 
-            if (game->elijah.sanity < 1)
+            if (game->elijah.sanity <= 0)
             {
                 typeText("You tried, but it's too late.\n");
                 Sleep(200);
@@ -544,14 +531,8 @@ void play(struct game *game)
             }
             else
             {
+                system("clear");
                 Sleep(500);
-                system('cls');
-                typeText("Lights fade out...\n");
-                Sleep(500);
-                system('cls');
-                typeText("You see nothing...\n");
-                Sleep(500);
-                system('cls');
                 typeText(".\n");
                 typeText(".\n");
                 typeText(".\n");
@@ -560,45 +541,19 @@ void play(struct game *game)
                 typeText("...\n");
                 typeText("You hear the voice of the wizard.\n");
                 typeText("mysterious being: He seems to be waking up...\n");
-                Sleep(3000);
-                customPause("Press Enter to continue...");
                 game->thisPhase = 5;
                 break;
             }
         case 4:
             printf("You gave up. There's only darkness.\n");
-            Sleep(3000);
             customPause("Press Enter to leave.");
             return;
         default:
+            control++;
             printf("Invalid option. Choose again.\n");
         }
     }
-//---------------------------------------------------------------------------------------FINALE---------------------------------------------------------------------------------------------------
-    system("cls");
-    printf("|#####################################################################################################################################|\n");
-    Sleep(200);
-    printf("|######################################################---------PHASE %d---------######################################################|\n", game->thisPhase);
-    Sleep(200);
-    printf("|#####################################################################################################################################|\n");
-    customPause("Press Enter to continue...");
-
-    typeText("You are awake.\n");
-    typeText("...\n");
-    Sleep(3000);
-    system('cls');
-    typeText("you are in the hospital... a man with sunglasses is watching you from the other side of the window...\n");
-    typeText("something tells you that you know him...");
-    typeText(".\n");
-    typeText(".\n");
-    typeText(".\n");
-    typeText(".\n");
-    typeText(".\n");
-    typeText("...\n");
-    typeText("He smiles for you and leave...");
-    Sleep(5000);
 }
-
 
 int main()
 {
@@ -609,8 +564,6 @@ int main()
     customPause("|#######################################################--PRESS ENTER TO PLAY--#######################################################|\n");
     runGame(&game);
     play(&game);
-    printEndScreen();
 
     return 0;
 }
-
